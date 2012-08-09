@@ -1,0 +1,176 @@
+/**
+ * Copyright (C) 2012 SINTEF <franck.fleurey@sintef.no>
+ *
+ * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3, 29 June 2007;
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * 	http://www.gnu.org/licenses/lgpl-3.0.txt
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.sintef.rtchart.swing;
+
+import java.awt.*;
+
+
+public abstract class GraphPanel extends AbstractGraphPanel {
+
+        protected static int TOP_OFFSET = 20;
+        protected static int BOTTOM_OFFSET = 2;
+
+
+        protected GraphBuffer graphBuffer;
+	protected int[] graphValues;
+
+	//Variables with setters getters
+	protected long sleepTime = 100;
+	protected Color color = Color.RED;
+	protected int ymin = 0;
+	protected int ymax = 1000;
+        protected int yminor = 100;
+	protected String name = "";
+
+	/**
+	 * Create the panel.
+	 */
+	public GraphPanel(GraphBuffer buffer, String name, int ymin, int ymax, int yminor, Color color) {
+		super();
+        this.graphBuffer = buffer;
+        this.color = color;
+		this.ymin = ymin;
+		this.ymax = ymax;
+        this.yminor = yminor;
+		this.name = name;
+
+		jLabelYMax.setText("" + ymax);
+		jLabelYMin.setText("" + ymin);
+		jLabelTitle.setText(name);
+                
+                jLabelAVG.setForeground(color);
+                jLabelValue.setForeground(color);
+                jLabelTitle.setForeground(color);
+                //jLabelVMax.setForeground(color);
+                //jLabelVMin.setForeground(color);
+
+        //new PaintManager().start();
+	}
+
+    protected int computeX(int value) {
+        return value * getWidth() / graphValues.length;
+    }
+
+    protected int computeY(int value) {
+       return getHeight() - BOTTOM_OFFSET - map(value, ymin, ymax, BOTTOM_OFFSET, getHeight() - TOP_OFFSET);
+    }
+
+    protected abstract void drawData(Graphics g);
+
+    protected void drawAxis(Graphics g) {
+       Graphics2D g2 = (Graphics2D) g;
+
+        Stroke s = g2.getStroke();
+        
+        g2.setColor(Color.GRAY);
+
+        g2.fillRect(0, 0, getWidth(), jLabelTitle.getHeight());
+        
+        g2.setStroke(new BasicStroke(2));
+
+        // draw the 0 axis:
+        if (ymin <= 0 && ymax >= 0) {
+            int y0 = computeY(0);
+            g.drawLine(0, y0, getWidth() ,y0);
+        }
+
+
+        g2.setStroke(new BasicStroke(1));
+        for (int ypos = yminor; ypos <= ymax; ypos+=yminor) {
+            if (ypos >= ymin) {
+                int y = computeY(ypos);
+                g.drawLine(0, y, getWidth() ,y);
+            }
+        }
+        for (int ypos = -yminor; ypos >= ymin; ypos-=yminor) {
+            if (ypos <= ymax) {
+                int y = computeY(ypos);
+                g.drawLine(0, y, getWidth() ,y);
+            }
+        }
+        g2.setStroke(s);
+    }
+
+	@Override
+	public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            drawAxis(g);
+            drawData(g);
+            jLabelAVG.setText("" + graphBuffer.average());
+            jLabelValue.setText("" + graphBuffer.last());
+	}
+
+	protected int findHighestValue() {
+		int max = Integer.MIN_VALUE;
+		for (int i = 0; i < graphValues.length; i++){
+			if(graphValues[i] > max && graphValues[i] != graphBuffer.getInvalidNumber()){
+				max = graphValues[i];
+			}
+		}
+		return max;
+	}
+
+	protected int findLowestValue() {
+		int min = Integer.MAX_VALUE;
+		for (int i = 0; i < graphValues.length; i++){
+			if(graphValues[i] < min && graphValues[i] != graphBuffer.getInvalidNumber()){
+				min = graphValues[i];
+			}
+		}
+		return min;
+	}
+
+	protected int map(int x, int in_min, int in_max, int out_min, int out_max)
+	{
+		return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+	}
+
+    private boolean stop = false;
+
+    public void start() {
+      new PaintManager().start();
+    }
+
+    public void stop() {
+        stop = true;
+    }
+
+	protected class PaintManager extends Thread {
+
+		public void run(){
+
+			while(!stop){
+
+				if(graphBuffer != null){
+					graphValues = graphBuffer.getGraphData();
+                    repaint();
+				}
+				try {
+					sleep(sleepTime);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+            System.out.println("End of paint thread.");
+		}
+	}
+}
+
+
+
+
+
+
