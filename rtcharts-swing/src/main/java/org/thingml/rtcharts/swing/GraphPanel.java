@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sintef.rtcharts.swing;
+package org.thingml.rtcharts.swing;
 
 import java.awt.*;
 

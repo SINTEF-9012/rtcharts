@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sintef.rtcharts.swing;
+package org.thingml.rtcharts.swing;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,9 +24,9 @@ import java.awt.Graphics;
  * Time: 15:05
  * To change this template use File | Settings | File Templates.
  */
-public class LineGraphPanel extends GraphPanel {
+public class BarGraphPanel extends GraphPanel {
 
-    public LineGraphPanel(GraphBuffer buffer, String name, int ymin, int ymax, int yminor, Color color) {
+    public BarGraphPanel(GraphBuffer buffer, String name, int ymin, int ymax, int yminor, Color color) {
         super(buffer, name, ymin, ymax, yminor, color);
     }
     
@@ -36,35 +35,45 @@ public class LineGraphPanel extends GraphPanel {
          if(graphValues == null) return;
 
             int X, Y;
-            int lastX = 0, lastY = Integer.MIN_VALUE;
+            int lastX = Integer.MIN_VALUE;
             int highestValue = findHighestValue();
 			int lowestValue = findLowestValue();
 
 			jLabelVMin.setText("" + lowestValue);
 			jLabelVMax.setText("" + highestValue);
 
+            int w = computeX(1)- computeX(0) + 1;
+
             g.setColor(color);
+            Graphics2D g2 = (Graphics2D)g;
+            Stroke s = g2.getStroke();
+            g2.setStroke(new BasicStroke(w));
 
             for(int i = 0; i < graphValues.length; i++) {
 
                 if(graphValues[i] == graphBuffer.getInvalidNumber()) break;
-
-                if (graphValues[i] < ymin || graphValues[i] > ymax) {
-                    lastY = Integer.MIN_VALUE;
-                    continue;
-                }
-
                 X = computeX(i);
-                Y = computeY(graphValues[i]);
 
-                if(lastY == Integer.MIN_VALUE) {
-                    g.drawLine(X, Y, X , Y);
+                if (graphValues[i] < ymin) {
+                    Y = computeY(ymin);
+                }
+                else if (graphValues[i] > ymax) {
+                    Y = computeY(ymax);
                 }
                 else {
-                    g.drawLine(lastX, lastY, X , Y);
+
+                   Y = computeY(graphValues[i]);
                 }
-                lastY = Y;
-                lastX = X;
+
+
+
+                if (graphValues[i] > 0)
+                    g2.drawLine(X, computeY(0)-w/2, X, Y+w/2);
+                else if (graphValues[i] < 0)
+                    g2.drawLine(X, computeY(0)+w/2, X, Y-w/2);
+
             }
+
+        g2.setStroke(s);
     }
 }

@@ -23,7 +23,7 @@
  *
  * Created on 1 juil. 2012, 13:01:21
  */
-package org.sintef.rtcharts.swing;
+package org.thingml.rtcharts.swing;
 
 /**
  *
