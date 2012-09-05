@@ -39,8 +39,10 @@ public class BarGraphPanel extends GraphPanel {
             int highestValue = findHighestValue();
 	    int lowestValue = findLowestValue();
 
-            if (lowestValue != Integer.MIN_VALUE) jLabelVMin.setText("" + lowestValue);
-            if (highestValue != Integer.MAX_VALUE) jLabelVMax.setText("" + highestValue);
+            if (lowestValue <= highestValue){ 
+                jLabelVMin.setText("" + lowestValue);
+                jLabelVMax.setText("" + highestValue);
+            }
 
             int w = computeX(1)- computeX(0) + 1;
 
