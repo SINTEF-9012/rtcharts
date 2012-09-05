@@ -38,10 +38,10 @@ public class LineGraphPanel extends GraphPanel {
             int X, Y;
             int lastX = 0, lastY = Integer.MIN_VALUE;
             int highestValue = findHighestValue();
-			int lowestValue = findLowestValue();
-
-			jLabelVMin.setText("" + lowestValue);
-			jLabelVMax.setText("" + highestValue);
+            int lowestValue = findLowestValue();
+            
+            if (lowestValue != Integer.MIN_VALUE) jLabelVMin.setText("" + lowestValue);
+            if (highestValue != Integer.MAX_VALUE) jLabelVMax.setText("" + highestValue);
 
             g.setColor(color);
 

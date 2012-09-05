@@ -27,13 +27,53 @@ public abstract class GraphPanel extends AbstractGraphPanel {
         protected GraphBuffer graphBuffer;
 	protected int[] graphValues;
 
-	//Variables with setters getters
+	//Variables with getters/setters 
 	protected long sleepTime = 100;
 	protected Color color = Color.RED;
 	protected int ymin = 0;
 	protected int ymax = 1000;
         protected int yminor = 100;
 	protected String name = "";
+
+    public long getSleepTime() {
+        return sleepTime;
+    }
+
+    public void setSleepTime(long sleepTime) {
+        this.sleepTime = sleepTime;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public int getYmin() {
+        return ymin;
+    }
+
+    public void setYmin(int ymin) {
+        this.ymin = ymin;
+    }
+
+    public int getYmax() {
+        return ymax;
+    }
+
+    public void setYmax(int ymax) {
+        this.ymax = ymax;
+    }
+
+    public int getYminor() {
+        return yminor;
+    }
+
+    public void setYminor(int yminor) {
+        this.yminor = yminor;
+    }
 
 	/**
 	 * Create the panel.
