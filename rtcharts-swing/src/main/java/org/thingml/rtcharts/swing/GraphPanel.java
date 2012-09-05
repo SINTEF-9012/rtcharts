@@ -49,6 +49,9 @@ public abstract class GraphPanel extends AbstractGraphPanel {
 
     public void setColor(Color color) {
         this.color = color;
+        jLabelAVG.setForeground(color);
+        jLabelValue.setForeground(color);
+        jLabelTitle.setForeground(color);
     }
 
     public int getYmin() {
@@ -57,6 +60,7 @@ public abstract class GraphPanel extends AbstractGraphPanel {
 
     public void setYmin(int ymin) {
         this.ymin = ymin;
+        jLabelYMin.setText("" + ymin);
     }
 
     public int getYmax() {
@@ -65,6 +69,7 @@ public abstract class GraphPanel extends AbstractGraphPanel {
 
     public void setYmax(int ymax) {
         this.ymax = ymax;
+        jLabelYMax.setText("" + ymax);
     }
 
     public int getYminor() {
