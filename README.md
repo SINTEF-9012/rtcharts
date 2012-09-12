@@ -6,3 +6,7 @@ It is typically used for ploting sensor data with a refresh rate up to 1kHz with
 
 **rtcharts** graphs can be easily interated in Java/Swing application and in Android applciations.
 
+Screenshots:
+------------
+
+![RTcharts Screenshot](https://raw.github.com/SINTEF-9012/traale/master/traale/screenshots/TraaleJava3.png)
