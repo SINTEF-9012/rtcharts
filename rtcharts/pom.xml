@@ -76,6 +76,15 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
+	    
+	    <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-release-plugin</artifactId>
+		<version>2.3.2</version>
+		<configuration>
+		  <tagBase>https://svn.apache.org/repos/asf/maven/components/releases</tagBase>
+		</configuration>
+	    </plugin>
            
         </plugins>
     </build>
@@ -117,5 +126,11 @@
         </snapshotRepository>
         
     </distributionManagement>
+    
+     <scm>
+	<connection>scm:git:git@github.com:SINTEF-9012/rtcharts.git</connection>
+	<url>scm:git:git@github.com:SINTEF-9012/rtcharts.git</url>
+	<developerConnection>scm:git:git@github.com:SINTEF-9012/rtcharts.git</developerConnection>
+     </scm>
   
 </project>
