@@ -5,6 +5,10 @@
   <artifactId>rtcharts-swing</artifactId>
   <name>RTCharts :: Swing</name>
   <packaging>jar</packaging>
+  
+  <properties>
+	<headerdir>${basedir}/../</headerdir>
+  </properties>
 
     <parent>
         <groupId>org.thingml</groupId>
