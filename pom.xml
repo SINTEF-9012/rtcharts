@@ -6,13 +6,32 @@
   <name>RTCharts :: Root</name>
   <url>https://github.com/SINTEF-9012/rtcharts</url>
   
+  <developers>
+    <developer>
+      <name>Franck Fleurey</name>
+      <email>franck.fleurey@sintef.no</email>
+    </developer>
+  </developers>
+  
+  <organization>
+    <name>SINTEF</name>
+    <url>http://www.thingml.org</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>LGPL</name>
+      <url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  
   <version>1.1.0-SNAPSHOT</version>
   
   <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <rtcharts.version>${project.version}</rtcharts.version>
         <bundle.vendor>SINTEF</bundle.vendor>
-	<headerdir>${basedir}</headerdir>
   </properties>
   
   <modules>
@@ -22,12 +41,13 @@
       <build>
         <plugins>
             <plugin>
+				<inherited>false</inherited>
                 <groupId>com.mycila.maven-license-plugin</groupId>
                 <artifactId>maven-license-plugin</artifactId>
                 <version>1.9.0</version>
                 <configuration>
                     <basedir>${basedir}</basedir>
-                    <header>${headerdir}/HEADER</header>
+                    <header>${basedir}/HEADER</header>
                     <strictCheck>true</strictCheck>
                     <properties>
                         <owner>SINTEF</owner>
