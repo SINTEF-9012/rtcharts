@@ -9,4 +9,4 @@ It is typically used for ploting sensor data with a refresh rate up to 1kHz with
 Screenshots:
 ------------
 
-![RTcharts Screenshot](https://raw.github.com/SINTEF-9012/traale/master/traale/screenshots/TraaleJava3.png)
+![RTcharts Screenshot](https://raw.github.com/SINTEF-9012/traale/master/traale-resources/screenshots/TraaleJava3.png)
