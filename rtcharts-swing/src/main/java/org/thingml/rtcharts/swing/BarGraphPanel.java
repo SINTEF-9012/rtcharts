@@ -31,6 +31,7 @@ public class BarGraphPanel extends GraphPanel {
 
     public BarGraphPanel(GraphBuffer buffer, String name, int ymin, int ymax, int yminor, Color color) {
         super(buffer, name, ymin, ymax, yminor, color);
+        setXminor(buffer.getGraphData().length);
     }
     
     @Override

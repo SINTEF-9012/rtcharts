@@ -23,6 +23,10 @@ public class GraphBuffer implements GraphBufferInterface {
 
 	private int[] graphData;
 	private int size;
+
+    public int getSize() {
+        return size;
+    }
 	private int notValidNumber = Integer.MIN_VALUE;
 	private int counter = 0;
 	

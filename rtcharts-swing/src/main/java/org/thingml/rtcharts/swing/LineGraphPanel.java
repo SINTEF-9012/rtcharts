@@ -30,6 +30,11 @@ import java.awt.Graphics;
  */
 public class LineGraphPanel extends GraphPanel {
 
+    public LineGraphPanel(GraphBuffer buffer, String name, int ymin, int ymax, int yminor, int xminor, Color color) {
+        super(buffer, name, ymin, ymax, yminor, color);
+        setXminor(xminor);
+    }
+    
     public LineGraphPanel(GraphBuffer buffer, String name, int ymin, int ymax, int yminor, Color color) {
         super(buffer, name, ymin, ymax, yminor, color);
     }
