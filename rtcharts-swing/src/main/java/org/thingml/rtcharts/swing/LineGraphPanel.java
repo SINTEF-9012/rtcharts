@@ -30,6 +30,8 @@ import java.awt.Graphics;
  */
 public class LineGraphPanel extends GraphPanel {
 
+    protected boolean saturate = true;
+    
     public LineGraphPanel(GraphBuffer buffer, String name, int ymin, int ymax, int yminor, int xminor, Color color) {
         super(buffer, name, ymin, ymax, yminor, color);
         setXminor(xminor);
@@ -54,18 +56,28 @@ public class LineGraphPanel extends GraphPanel {
             }
 
             g.setColor(color);
+            
+            int yval;
 
             for(int i = 0; i < graphValues.length; i++) {
 
-                if(graphValues[i] == graphBuffer.getInvalidNumber()) break;
+                yval = graphValues[i];
+                
+                if(yval == graphBuffer.getInvalidNumber()) break;
 
-                if (graphValues[i] < ymin || graphValues[i] > ymax) {
-                    lastY = Integer.MIN_VALUE;
-                    continue;
+                if (saturate) { // Plot out of bound value with the maximum visible value
+                    if (yval < ymin) yval = ymin;
+                    if (yval > ymax) yval = ymax;
+                }
+                else { // do not plot "out of range" values
+                    if (yval < ymin || yval > ymax) {
+                        lastY = Integer.MIN_VALUE;
+                        continue;
+                    }
                 }
 
                 X = computeX(i);
-                Y = computeY(graphValues[i]);
+                Y = computeY(yval);
 
                 if(lastY == Integer.MIN_VALUE) {
                     g.drawLine(X, Y, X , Y);
