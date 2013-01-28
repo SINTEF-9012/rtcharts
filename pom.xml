@@ -26,7 +26,7 @@
     </license>
   </licenses>
   
-  <version>1.2.0</version>
+  <version>1.3.0-SNAPSHOT</version>
   
   <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -151,7 +151,7 @@
 	<connection>scm:git:git@github.com:SINTEF-9012/rtcharts.git</connection>
 	<url>scm:git:git@github.com:SINTEF-9012/rtcharts.git</url>
 	<developerConnection>scm:git:git@github.com:SINTEF-9012/rtcharts.git</developerConnection>
-       <tag>rtcharts-1.2.0</tag>
+       <tag>HEAD</tag>
   </scm>
   
 </project>
