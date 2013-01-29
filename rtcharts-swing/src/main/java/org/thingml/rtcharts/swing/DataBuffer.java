@@ -108,8 +108,8 @@ public class DataBuffer {
     }
     
     public int[] lastRow() {
-        
         int[] result = new int[columns];
+        if (row_count == 0) return result;
         for (int j = 0; j < columns; j++) {
             result[j] = data[j][row_count-1];
         }
