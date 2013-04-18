@@ -28,6 +28,11 @@
  */
 package org.thingml.rtcharts.swing;
 
+import java.awt.Color;
+import java.awt.event.MouseEvent;
+import javax.swing.JColorChooser;
+import javax.swing.JDialog;
+
 /**
  *
  * @author franck
@@ -37,9 +42,47 @@ public class AbstractGraphPanel extends javax.swing.JPanel {
     /** Creates new form GraphPanel */
     public AbstractGraphPanel() {
         initComponents();
-        System.out.println("After AbstractGraphPanel::initComponents");
+        //System.out.println("After AbstractGraphPanel::initComponents");
+        setDarkBackground();
     }
+    
+    protected static Color dark = new java.awt.Color(31, 31, 31);
+    protected static Color bright = new java.awt.Color(220, 220, 220);
 
+    protected static JColorChooser cchooser = new JColorChooser();
+    
+    public void setDarkBackground() {
+         this.setBackground(dark);
+        jLabelTitle.setBackground(dark);
+        jLabelAVG.setBackground(dark);
+        jLabelValue.setBackground(dark);
+        jLabelVMax.setForeground(bright);
+        jLabelVMin.setForeground(bright);
+        jLabelYMax.setForeground(bright);
+        jLabelYMin.setForeground(bright);   
+    }
+    
+    public void setBrightBackground() {
+         this.setBackground(bright);
+        jLabelTitle.setBackground(bright);
+        jLabelAVG.setBackground(bright);
+        jLabelValue.setBackground(bright);
+        jLabelVMax.setForeground(dark);
+        jLabelVMin.setForeground(dark);
+        jLabelYMax.setForeground(dark);
+        jLabelYMin.setForeground(dark);   
+    }
+    
+    public void setColor(Color fg) {
+        jLabelTitle.setForeground(fg);
+        jLabelAVG.setForeground(fg);
+        jLabelValue.setForeground(fg);
+    }
+    
+    public Color getColor() {
+        return Color.white;
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -49,6 +92,10 @@ public class AbstractGraphPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItemBrightBG = new javax.swing.JMenuItem();
+        jMenuItemDarkBG = new javax.swing.JMenuItem();
+        jMenuItemColor = new javax.swing.JMenuItem();
         jLabelTitle = new javax.swing.JLabel();
         jLabelYMax = new javax.swing.JLabel();
         jLabelYMin = new javax.swing.JLabel();
@@ -57,8 +104,40 @@ public class AbstractGraphPanel extends javax.swing.JPanel {
         jLabelValue = new javax.swing.JLabel();
         jLabelAVG = new javax.swing.JLabel();
 
-        setBackground(java.awt.Color.darkGray);
+        jMenuItemBrightBG.setText("Bright Background");
+        jMenuItemBrightBG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemBrightBGActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItemBrightBG);
+
+        jMenuItemDarkBG.setText("Dark Background");
+        jMenuItemDarkBG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDarkBGActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItemDarkBG);
+
+        jMenuItemColor.setText("Change Color...");
+        jMenuItemColor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemColorActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItemColor);
+
+        setBackground(new java.awt.Color(51, 51, 51));
         setMinimumSize(new java.awt.Dimension(200, 100));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                formMouseReleased(evt);
+            }
+        });
 
         jLabelTitle.setBackground(new java.awt.Color(217, 217, 217));
         jLabelTitle.setFont(jLabelTitle.getFont().deriveFont(jLabelTitle.getFont().getStyle() | java.awt.Font.BOLD));
@@ -132,6 +211,31 @@ public class AbstractGraphPanel extends javax.swing.JPanel {
                     .addComponent(jLabelYMin)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        
+    }//GEN-LAST:event_formMouseClicked
+
+    private void jMenuItemBrightBGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBrightBGActionPerformed
+       setBrightBackground();
+        
+    }//GEN-LAST:event_jMenuItemBrightBGActionPerformed
+
+    private void jMenuItemDarkBGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDarkBGActionPerformed
+       setDarkBackground();
+    }//GEN-LAST:event_jMenuItemDarkBGActionPerformed
+
+    private void jMenuItemColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemColorActionPerformed
+        Color newc = JColorChooser.showDialog(this, "Change Graph Color...", getColor());
+        if (newc != null) setColor(newc);
+    }//GEN-LAST:event_jMenuItemColorActionPerformed
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+        if (evt.getButton() == MouseEvent.BUTTON3) {
+            jPopupMenu1.show(this, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_formMouseReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected javax.swing.JLabel jLabelAVG;
     protected javax.swing.JLabel jLabelTitle;
@@ -140,5 +244,9 @@ public class AbstractGraphPanel extends javax.swing.JPanel {
     protected javax.swing.JLabel jLabelValue;
     protected javax.swing.JLabel jLabelYMax;
     protected javax.swing.JLabel jLabelYMin;
+    private javax.swing.JMenuItem jMenuItemBrightBG;
+    private javax.swing.JMenuItem jMenuItemColor;
+    private javax.swing.JMenuItem jMenuItemDarkBG;
+    private javax.swing.JPopupMenu jPopupMenu1;
     // End of variables declaration//GEN-END:variables
 }

@@ -60,11 +60,10 @@ public abstract class GraphPanel extends AbstractGraphPanel {
     }
 
     public void setColor(Color color) {
+        super.setColor(color);
         this.color = color;
-        jLabelAVG.setForeground(color);
-        jLabelValue.setForeground(color);
-        jLabelTitle.setForeground(color);
     }
+    
 
     public int getYmin() {
         return ymin;
@@ -112,13 +111,8 @@ public abstract class GraphPanel extends AbstractGraphPanel {
         jLabelYMin.setText("" + ymin);
         jLabelTitle.setText(name);
 
-        jLabelAVG.setForeground(color);
-        jLabelValue.setForeground(color);
-        jLabelTitle.setForeground(color);
-        //jLabelVMax.setForeground(color);
-        //jLabelVMin.setForeground(color);
-
-        //new PaintManager().start();
+        super.setColor(color);
+        
 	}
 
     protected int computeX(int value) {
@@ -145,7 +139,7 @@ public abstract class GraphPanel extends AbstractGraphPanel {
         
         g2.setColor(cline);
 
-        g2.fillRect(0, 0, getWidth(), jLabelTitle.getHeight());
+        //g2.fillRect(0, 0, getWidth(), jLabelTitle.getHeight());
         
         g2.setStroke(new BasicStroke(2));
 
