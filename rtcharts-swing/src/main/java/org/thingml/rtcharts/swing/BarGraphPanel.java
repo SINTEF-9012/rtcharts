@@ -34,6 +34,14 @@ public class BarGraphPanel extends GraphPanel {
         setXminor(buffer.getGraphData().length);
     }
     
+    public BarGraphPanel(GraphBuffer buffer, String name, int ymin, int ymax, int yminor, Color color, double scale, String labelFormatString, String avgValText, String lastValText) {
+        super(buffer, name, ymin, ymax, yminor, color);
+        setXminor(buffer.getGraphData().length);
+        setScaleAndFormat(scale, labelFormatString);
+        setAvgValText(avgValText);
+        setLastValText(lastValText);
+    }
+    
     @Override
     protected void drawData(Graphics g) {
          if(graphValues == null) return;
@@ -44,8 +52,10 @@ public class BarGraphPanel extends GraphPanel {
 	    int lowestValue = findLowestValue();
 
             if (lowestValue <= highestValue){ 
-                jLabelVMin.setText("" + lowestValue);
-                jLabelVMax.setText("" + highestValue);
+                //jLabelVMin.setText("" + lowestValue);
+                jLabelVMin.setText("" + labelFormat.format(lowestValue * scale));
+                //jLabelVMax.setText("" + highestValue);
+                jLabelVMax.setText("" + labelFormat.format(highestValue * scale));
             }
 
             int w = computeX(1)- computeX(0) + 1;

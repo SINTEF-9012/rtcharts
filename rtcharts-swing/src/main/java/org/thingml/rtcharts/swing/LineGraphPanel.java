@@ -41,6 +41,21 @@ public class LineGraphPanel extends GraphPanel {
         super(buffer, name, ymin, ymax, yminor, color);
     }
     
+    public LineGraphPanel(GraphBuffer buffer, String name, int ymin, int ymax, int yminor, int xminor, Color color, double scale, String labelFormatString, String avgValText, String lastValText) {
+        super(buffer, name, ymin, ymax, yminor, color);
+        setXminor(xminor);
+        setScaleAndFormat(scale, labelFormatString);
+        setAvgValText(avgValText);
+        setLastValText(lastValText);
+    }
+    
+    public LineGraphPanel(GraphBuffer buffer, String name, int ymin, int ymax, int yminor, Color color, double scale, String labelFormatString, String avgValText, String lastValText) {
+        super(buffer, name, ymin, ymax, yminor, color);
+        setScaleAndFormat(scale, labelFormatString);
+        setAvgValText(avgValText);
+        setLastValText(lastValText);
+    }
+    
     @Override
     protected void drawData(Graphics g) {
          if(graphValues == null) return;
@@ -51,8 +66,10 @@ public class LineGraphPanel extends GraphPanel {
             int lowestValue = findLowestValue();
             
             if (lowestValue <= highestValue){ 
-                jLabelVMin.setText("" + lowestValue);
-                jLabelVMax.setText("" + highestValue);
+                //jLabelVMin.setText("" + lowestValue);
+                jLabelVMin.setText("" + labelFormat.format(lowestValue * scale));
+                //jLabelVMax.setText("" + highestValue);
+                jLabelVMax.setText("" + labelFormat.format(highestValue * scale));
             }
 
             g.setColor(color);

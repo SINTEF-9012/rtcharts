@@ -19,6 +19,7 @@
 package org.thingml.rtcharts.swing;
 
 import java.awt.*;
+import java.text.DecimalFormat;
 
 
 public abstract class GraphPanel extends AbstractGraphPanel {
@@ -37,7 +38,11 @@ public abstract class GraphPanel extends AbstractGraphPanel {
 	protected int ymax = 1000;
         protected int yminor = 100;
         protected int xminor = 50;
-
+        protected DecimalFormat labelFormat = new DecimalFormat("0");
+        protected double scale = 1.0;
+        protected String avgValText = "";
+        protected String lastValText = "";
+        
     public int getXminor() {
         return xminor;
     }
@@ -71,7 +76,8 @@ public abstract class GraphPanel extends AbstractGraphPanel {
 
     public void setYmin(int ymin) {
         this.ymin = ymin;
-        jLabelYMin.setText("" + ymin);
+        //jLabelYMin.setText("" + ymin);
+        jLabelYMin.setText("" + labelFormat.format(ymin * scale));
     }
 
     public int getYmax() {
@@ -80,7 +86,8 @@ public abstract class GraphPanel extends AbstractGraphPanel {
 
     public void setYmax(int ymax) {
         this.ymax = ymax;
-        jLabelYMax.setText("" + ymax);
+        //jLabelYMax.setText("" + ymax);
+        jLabelYMax.setText("" + labelFormat.format(ymax * scale));
     }
 
     public int getYminor() {
@@ -91,8 +98,37 @@ public abstract class GraphPanel extends AbstractGraphPanel {
         this.yminor = yminor;
     }
 
+    public double getScale() {
+        return scale;
+    }
+
+    public void setScaleAndFormat(double scale, String labelFormatString) {
+        this.scale = scale;
+        this.labelFormat = new DecimalFormat(labelFormatString);
+        jLabelYMin.setText("" + labelFormat.format(ymin * scale));
+        jLabelYMax.setText("" + labelFormat.format(ymax * scale));
+    }
         
-    
+    public DecimalFormat getLabelFormat() {
+        return labelFormat;
+    }
+
+    public String getAvgValText() {
+        return avgValText;
+    }
+
+    public void setAvgValText(String avgValText) {
+        this.avgValText = avgValText;
+    }
+        
+    public String getLastValText() {
+        return lastValText;
+    }
+
+    public void setLastValText(String lastValText) {
+        this.lastValText = lastValText;
+    }
+        
 	/**
 	 * Create the panel.
 	 */
@@ -107,8 +143,10 @@ public abstract class GraphPanel extends AbstractGraphPanel {
         
         this.xminor = buffer.getGraphData().length + 1; // no grid
 
-        jLabelYMax.setText("" + ymax);
-        jLabelYMin.setText("" + ymin);
+        //jLabelYMax.setText("" + ymax);
+        jLabelYMax.setText("" + labelFormat.format(ymax * scale));
+        //jLabelYMin.setText("" + ymin);
+        jLabelYMin.setText("" + labelFormat.format(ymin * scale));
         jLabelTitle.setText(name);
 
         super.setColor(color);
@@ -185,8 +223,10 @@ public abstract class GraphPanel extends AbstractGraphPanel {
             super.paintComponent(g);
             drawAxis(g);
             drawData(g);
-            jLabelAVG.setText("" + graphBuffer.average());
-            jLabelValue.setText("" + graphBuffer.last());
+            //jLabelAVG.setText("" + graphBuffer.average());
+            jLabelAVG.setText(avgValText + labelFormat.format(graphBuffer.average() * scale));
+            //jLabelValue.setText("" + graphBuffer.last());
+            jLabelValue.setText(lastValText + labelFormat.format(graphBuffer.last() * scale));
 	}
 
 	protected int findHighestValue() {
