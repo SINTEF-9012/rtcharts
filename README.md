@@ -10,3 +10,6 @@ Screenshots:
 ------------
 
 ![RTcharts Screenshot](https://raw.github.com/SINTEF-9012/traale/master/traale-resources/screenshots/TraaleJava3.png)
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/SINTEF-9012/rtcharts/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
