@@ -81,6 +81,13 @@ public class DataBuffer {
         return true;
     }
     
+    public synchronized boolean setDataColumn(int col, int[] data) {
+        for (int j = 0; j < rows; j++) {
+            this.data[col][j] = data[j];
+        }
+        return true;
+    }
+    
     public synchronized boolean appendDataRow(int[] data) {
         
         for (int j = 0; j < columns; j++) {
