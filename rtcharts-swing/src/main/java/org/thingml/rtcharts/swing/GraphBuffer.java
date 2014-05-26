@@ -39,6 +39,11 @@ public class GraphBuffer implements GraphBufferInterface {
     public synchronized int[] getGraphData() {
         return data.getColumnClone(0);
     }
+    
+    public synchronized void setGraphData(int[] new_data) {
+        data = new DataBuffer(1, new_data.length);
+        data.setDataColumn(0, new_data);
+    }
 
     @Override
     public synchronized boolean insertData(int value) {
