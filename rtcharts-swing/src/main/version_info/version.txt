@@ -1,0 +1,7 @@
+Proj:${artifactId} 
+Compiled:${my.build.date} 
+Computer:${os.name}${os.version} 
+User:${user.name} 
+Computer:${env.COMPUTERNAME} 
+Ver:${version} 
+Org:${organization.name} 
