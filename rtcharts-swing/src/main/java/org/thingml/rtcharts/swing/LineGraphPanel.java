@@ -62,8 +62,8 @@ public class LineGraphPanel extends GraphPanel {
 
             int X, Y;
             int lastX = 0, lastY = Integer.MIN_VALUE;
-            int highestValue = findHighestValue();
-            int lowestValue = findLowestValue();
+            int highestValue = bufferYmax;
+            int lowestValue = bufferYmin;
             
             if (lowestValue <= highestValue){ 
                 //jLabelVMin.setText("" + lowestValue);

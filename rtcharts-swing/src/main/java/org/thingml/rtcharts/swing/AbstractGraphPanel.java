@@ -37,7 +37,7 @@ import javax.swing.JDialog;
  *
  * @author franck
  */
-public class AbstractGraphPanel extends javax.swing.JPanel {
+abstract public class AbstractGraphPanel extends javax.swing.JPanel {
 
     /** Creates new form GraphPanel */
     public AbstractGraphPanel() {
@@ -50,6 +50,8 @@ public class AbstractGraphPanel extends javax.swing.JPanel {
     protected static Color bright = new java.awt.Color(220, 220, 220);
 
     protected static JColorChooser cchooser = new JColorChooser();
+    
+    protected boolean autoScale = false;
     
     public void setDarkBackground() {
          this.setBackground(dark);
@@ -82,6 +84,16 @@ public class AbstractGraphPanel extends javax.swing.JPanel {
     public Color getColor() {
         return Color.white;
     }
+
+    abstract void mouseClicked(java.awt.event.MouseEvent evt);
+
+    abstract void fitToContent();
+
+    public void setAutoScale(boolean val) {
+        this.autoScale = val;
+        if (autoScale == false ) jMenuItemAutoScale.setText("Auto scale");
+           else jMenuItemAutoScale.setText("Auto scale (ON)");
+    }
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -96,6 +108,8 @@ public class AbstractGraphPanel extends javax.swing.JPanel {
         jMenuItemBrightBG = new javax.swing.JMenuItem();
         jMenuItemDarkBG = new javax.swing.JMenuItem();
         jMenuItemColor = new javax.swing.JMenuItem();
+        jMenuItemAutoScale = new javax.swing.JMenuItem();
+        jMenuItemFit = new javax.swing.JMenuItem();
         jLabelTitle = new javax.swing.JLabel();
         jLabelYMax = new javax.swing.JLabel();
         jLabelYMin = new javax.swing.JLabel();
@@ -127,6 +141,22 @@ public class AbstractGraphPanel extends javax.swing.JPanel {
             }
         });
         jPopupMenu1.add(jMenuItemColor);
+
+        jMenuItemAutoScale.setText("Auto scale");
+        jMenuItemAutoScale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAutoScaleActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItemAutoScale);
+
+        jMenuItemFit.setText("Fit to content");
+        jMenuItemFit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemFitActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItemFit);
 
         setBackground(new java.awt.Color(51, 51, 51));
         setMinimumSize(new java.awt.Dimension(200, 100));
@@ -213,7 +243,8 @@ public class AbstractGraphPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        
+        mouseClicked( evt );
+        System.out.println("Mouse clicked " + jLabelTitle.getText());
     }//GEN-LAST:event_formMouseClicked
 
     private void jMenuItemBrightBGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBrightBGActionPerformed
@@ -236,6 +267,16 @@ public class AbstractGraphPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_formMouseReleased
 
+    private void jMenuItemFitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFitActionPerformed
+        if ( autoScale == true ) fitToContent();
+    }//GEN-LAST:event_jMenuItemFitActionPerformed
+
+    private void jMenuItemAutoScaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAutoScaleActionPerformed
+        autoScale = !autoScale;
+        if (autoScale == false ) jMenuItemAutoScale.setText("Auto scale");
+           else jMenuItemAutoScale.setText("Auto scale (ON)");
+    }//GEN-LAST:event_jMenuItemAutoScaleActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected javax.swing.JLabel jLabelAVG;
     protected javax.swing.JLabel jLabelTitle;
@@ -244,9 +285,11 @@ public class AbstractGraphPanel extends javax.swing.JPanel {
     protected javax.swing.JLabel jLabelValue;
     protected javax.swing.JLabel jLabelYMax;
     protected javax.swing.JLabel jLabelYMin;
+    private javax.swing.JMenuItem jMenuItemAutoScale;
     private javax.swing.JMenuItem jMenuItemBrightBG;
     private javax.swing.JMenuItem jMenuItemColor;
     private javax.swing.JMenuItem jMenuItemDarkBG;
+    private javax.swing.JMenuItem jMenuItemFit;
     private javax.swing.JPopupMenu jPopupMenu1;
     // End of variables declaration//GEN-END:variables
 }

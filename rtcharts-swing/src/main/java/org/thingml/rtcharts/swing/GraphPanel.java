@@ -212,8 +212,12 @@ public abstract class GraphPanel extends AbstractGraphPanel {
 
     }
 
+    int bufferYmax = 0;
+    int bufferYmin = 0;
     @Override
     public void paintComponent(Graphics g) {
+        bufferYmax = findHighestValue();
+        bufferYmin = findLowestValue();
         super.paintComponent(g);
         drawAxis(g);
         drawData(g);
@@ -247,6 +251,19 @@ public abstract class GraphPanel extends AbstractGraphPanel {
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
 
+    @Override
+    void fitToContent() {
+        if ( autoScale == true ) {
+            setYmax(bufferYmax);
+            setYmin(bufferYmin);
+        }
+    }
+             
+    @Override
+     void mouseClicked(java.awt.event.MouseEvent evt) {
+        //fitToContent();
+    }                                 
+    
     private boolean stop = false;
 
     public void start() {
@@ -263,14 +280,17 @@ public abstract class GraphPanel extends AbstractGraphPanel {
             repaint();
         }
     }
-
+    
     protected class PaintManager extends Thread {
-
         public void run() {
 
             while (!stop) {
 
                 try {
+                    if ( autoScale == true ) {
+                        if ( getYmax() < bufferYmax ) setYmax(bufferYmax);
+                        if ( getYmin() > bufferYmin ) setYmin(bufferYmin);
+                    }
                     redrawGraph();
                     sleep(sleepTime);
                 } catch (InterruptedException e) {
