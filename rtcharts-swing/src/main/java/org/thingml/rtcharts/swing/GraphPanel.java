@@ -72,6 +72,9 @@ public abstract class GraphPanel extends AbstractGraphPanel {
     }
 
     public void setYmin(int ymin) {
+        
+        if (ymin == ymax) ymin--; // Avoid divide by zero
+        
         this.ymin = ymin;
         //jLabelYMin.setText("" + ymin);
         jLabelYMin.setText("" + labelFormat.format(ymin * scale));
@@ -82,6 +85,9 @@ public abstract class GraphPanel extends AbstractGraphPanel {
     }
 
     public void setYmax(int ymax) {
+        
+        if (ymax == ymin) ymax++; // Avoid divide by zero
+        
         this.ymax = ymax;
         //jLabelYMax.setText("" + ymax);
         jLabelYMax.setText("" + labelFormat.format(ymax * scale));
