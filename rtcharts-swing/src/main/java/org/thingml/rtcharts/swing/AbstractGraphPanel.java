@@ -268,7 +268,8 @@ abstract public class AbstractGraphPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_formMouseReleased
 
     private void jMenuItemFitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFitActionPerformed
-        if ( autoScale == true ) fitToContent();
+        //if ( autoScale == true ) fitToContent();
+        fitToContent();
     }//GEN-LAST:event_jMenuItemFitActionPerformed
 
     private void jMenuItemAutoScaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAutoScaleActionPerformed

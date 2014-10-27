@@ -259,10 +259,10 @@ public abstract class GraphPanel extends AbstractGraphPanel {
 
     @Override
     void fitToContent() {
-        if ( autoScale == true ) {
-            setYmax(bufferYmax);
-            setYmin(bufferYmin);
-        }
+//        if ( autoScale == true ) {
+            if (bufferYmax != Integer.MIN_VALUE) setYmax(bufferYmax);
+            if (bufferYmin != Integer.MAX_VALUE) setYmin(bufferYmin);
+//        }
     }
              
     @Override
