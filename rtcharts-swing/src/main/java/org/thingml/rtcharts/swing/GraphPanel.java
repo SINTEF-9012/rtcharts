@@ -222,8 +222,10 @@ public abstract class GraphPanel extends AbstractGraphPanel {
     int bufferYmin = 0;
     @Override
     public void paintComponent(Graphics g) {
-        bufferYmax = findHighestValue();
-        bufferYmin = findLowestValue();
+        if (graphValues != null){
+            bufferYmax = findHighestValue();
+            bufferYmin = findLowestValue();
+        }
         super.paintComponent(g);
         drawAxis(g);
         drawData(g);
