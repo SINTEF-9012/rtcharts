@@ -35,6 +35,13 @@ public class GraphBuffer implements GraphBufferInterface {
         data = new DataBuffer(1, customSize);
     }
 
+    public GraphBuffer(int customSize, int init) {
+        data = new DataBuffer(1, customSize);
+        for(int i = 0; i < customSize; i++) {
+            data.setData(i, 0, init);
+        }
+    }
+
     @Override
     public synchronized int[] getGraphData() {
         return data.getColumnClone(0);
@@ -50,6 +57,10 @@ public class GraphBuffer implements GraphBufferInterface {
         return data.appendDataRow(new int[]{value});
     }
 
+    public synchronized boolean setData(int row, int column, int value) {
+        return data.setData(row, column, value);
+    }
+    
     @Override
     public int getInvalidNumber() {
         return data.getInvalidNumber();
