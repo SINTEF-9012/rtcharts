@@ -110,6 +110,8 @@ public abstract class GraphPanel extends AbstractGraphPanel {
         this.labelFormat = new DecimalFormat(labelFormatString);
         jLabelYMin.setText("" + labelFormat.format(ymin * scale));
         jLabelYMax.setText("" + labelFormat.format(ymax * scale));
+        jLabelAVG.setText(avgValText + labelFormat.format(graphBuffer.average() * scale));
+        jLabelValue.setText(lastValText + labelFormat.format(graphBuffer.last() * scale));
     }
 
     public DecimalFormat getLabelFormat() {
@@ -150,6 +152,10 @@ public abstract class GraphPanel extends AbstractGraphPanel {
         jLabelYMax.setText("" + labelFormat.format(ymax * scale));
         //jLabelYMin.setText("" + ymin);
         jLabelYMin.setText("" + labelFormat.format(ymin * scale));
+
+        jLabelAVG.setText(avgValText + labelFormat.format(graphBuffer.average() * scale));
+        jLabelValue.setText(lastValText + labelFormat.format(graphBuffer.last() * scale));
+
         jLabelTitle.setText(name);
 
         super.setColor(color);

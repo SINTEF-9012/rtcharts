@@ -35,13 +35,6 @@ public class GraphBuffer implements GraphBufferInterface {
         data = new DataBuffer(1, customSize);
     }
 
-    public GraphBuffer(int customSize, int init) {
-        data = new DataBuffer(1, customSize);
-        for(int i = 0; i < customSize; i++) {
-            data.setData(i, 0, init);
-        }
-    }
-
     @Override
     public synchronized int[] getGraphData() {
         return data.getColumnClone(0);

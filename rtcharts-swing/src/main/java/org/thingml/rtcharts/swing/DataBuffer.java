@@ -35,7 +35,7 @@ public class DataBuffer {
         return row_count;
     }
     
-        public int getInvalidNumber() {
+    public int getInvalidNumber() {
         return notValidNumber;
     }
     
@@ -71,6 +71,7 @@ public class DataBuffer {
 
     public synchronized boolean setData(int row, int column, int data) {
         this.data[column][row] = data;
+        if (row_count < (row+1)) row_count = row+1;
         return true;
     }
     
@@ -78,6 +79,7 @@ public class DataBuffer {
         for (int j = 0; j < columns; j++) {
             this.data[j][row] = data[j];
         }
+        if (row_count < (row+1)) row_count = row+1;
         return true;
     }
     
