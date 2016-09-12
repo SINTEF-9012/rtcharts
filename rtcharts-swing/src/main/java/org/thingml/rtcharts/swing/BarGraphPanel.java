@@ -67,26 +67,27 @@ public class BarGraphPanel extends GraphPanel {
 
             for(int i = 0; i < graphValues.length; i++) {
 
-                if(graphValues[i] == graphBuffer.getInvalidNumber()) break;
-                X = computeX(i);
+                if(graphValues[i] != graphBuffer.getInvalidNumber()) {
+                    X = computeX(i);
 
-                if (graphValues[i] < ymin) {
-                    Y = computeY(ymin);
+                    if (graphValues[i] < ymin) {
+                        Y = computeY(ymin);
+                    }
+                    else if (graphValues[i] > ymax) {
+                        Y = computeY(ymax);
+                    }
+                    else {
+
+                       Y = computeY(graphValues[i]);
+                    }
+
+
+
+                    if (graphValues[i] > 0)
+                        g2.drawLine(X, computeY(0)-w/2, X, Y+w/2);
+                    else if (graphValues[i] < 0)
+                        g2.drawLine(X, computeY(0)+w/2, X, Y-w/2);
                 }
-                else if (graphValues[i] > ymax) {
-                    Y = computeY(ymax);
-                }
-                else {
-
-                   Y = computeY(graphValues[i]);
-                }
-
-
-
-                if (graphValues[i] > 0)
-                    g2.drawLine(X, computeY(0)-w/2, X, Y+w/2);
-                else if (graphValues[i] < 0)
-                    g2.drawLine(X, computeY(0)+w/2, X, Y-w/2);
 
             }
 
