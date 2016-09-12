@@ -80,30 +80,31 @@ public class LineGraphPanel extends GraphPanel {
 
                 yval = graphValues[i];
                 
-                if(yval == graphBuffer.getInvalidNumber()) break;
+                if(yval != graphBuffer.getInvalidNumber()) {
 
-                if (saturate) { // Plot out of bound value with the maximum visible value
-                    if (yval < ymin) yval = ymin;
-                    if (yval > ymax) yval = ymax;
-                }
-                else { // do not plot "out of range" values
-                    if (yval < ymin || yval > ymax) {
-                        lastY = Integer.MIN_VALUE;
-                        continue;
+                    if (saturate) { // Plot out of bound value with the maximum visible value
+                        if (yval < ymin) yval = ymin;
+                        if (yval > ymax) yval = ymax;
                     }
-                }
+                    else { // do not plot "out of range" values
+                        if (yval < ymin || yval > ymax) {
+                            lastY = Integer.MIN_VALUE;
+                            continue;
+                        }
+                    }
 
-                X = computeX(i);
-                Y = computeY(yval);
+                    X = computeX(i);
+                    Y = computeY(yval);
 
-                if(lastY == Integer.MIN_VALUE) {
-                    g.drawLine(X, Y, X , Y);
+                    if(lastY == Integer.MIN_VALUE) {
+                        g.drawLine(X, Y, X , Y);
+                    }
+                    else {
+                        g.drawLine(lastX, lastY, X , Y);
+                    }
+                    lastY = Y;
+                    lastX = X;
                 }
-                else {
-                    g.drawLine(lastX, lastY, X , Y);
-                }
-                lastY = Y;
-                lastX = X;
             }
     }
 }

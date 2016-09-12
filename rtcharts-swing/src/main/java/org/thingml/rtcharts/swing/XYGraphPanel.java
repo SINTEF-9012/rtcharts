@@ -139,18 +139,20 @@ public class XYGraphPanel extends AbstractXYGraphPanel {
             xval = graphValues[0][i];
             yval = graphValues[1][i];
 
-            if (xval == graphBuffer.getInvalidNumber()) break;
-            if (yval == graphBuffer.getInvalidNumber()) break;
+            if (xval != graphBuffer.getInvalidNumber()) {
+                if (yval != graphBuffer.getInvalidNumber()) {
 
-            // do not plot "out of range" values
-            if (xval < xmin || xval > xmax || yval < ymin || yval > ymax) continue;
-            
-         
-            X = computeX(xval);
-            Y = computeY(yval);
+                    // do not plot "out of range" values
+                    if (xval < xmin || xval > xmax || yval < ymin || yval > ymax) continue;
 
-            g.drawLine(X-2, Y, X+2, Y);
-            g.drawLine(X, Y-2, X, Y+2);
+
+                    X = computeX(xval);
+                    Y = computeY(yval);
+
+                    g.drawLine(X-2, Y, X+2, Y);
+                    g.drawLine(X, Y-2, X, Y+2);
+                }
+            }
         }
     }
 
